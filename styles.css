@@ -1,0 +1,1238 @@
+/* ============================================
+   RESET Y BASE
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lora', Georgia, serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: linear-gradient(135deg, #f9f5ff 0%, #f5f0ff 25%, #ede5ff 50%, #f5f0ff 75%, #f9f5ff 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Elementos flotantes (corazones y estrellas) */
+#floatingElements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.floating-item {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.floating-item.heart {
+    color: #b388ff;
+    text-shadow: 0 0 10px rgba(179, 136, 255, 0.5);
+}
+
+.floating-item.star {
+    color: #ffe082;
+    text-shadow: 0 0 8px rgba(255, 224, 130, 0.6);
+}
+
+.floating-item.burst {
+    z-index: 100;
+    pointer-events: none;
+}
+
+.floating-item.burst.heart {
+    color: #b388ff;
+    text-shadow: 0 0 15px rgba(179, 136, 255, 0.8);
+}
+
+.floating-item.burst.star {
+    color: #ffd54f;
+    text-shadow: 0 0 15px rgba(255, 213, 79, 0.8);
+}
+
+/* Secciones/Actos */
+.acto {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 10;
+    overflow: visible;
+}
+
+.acto.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ============================================
+   ACTO 1: SOBRE CERRADO ROSA
+   ============================================ */
+.scene-1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 35px;
+}
+
+.envelope {
+    position: relative;
+    width: 280px;
+    height: 180px;
+    cursor: pointer;
+    transform-style: preserve-3d;
+}
+
+.envelope-body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #c4a5d4 0%, #b48bc8 100%);
+    border-radius: 6px;
+    box-shadow: 
+        0 20px 50px rgba(150, 100, 180, 0.3),
+        0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 55%;
+    background: linear-gradient(180deg, #d8b4e8 0%, #c4a5d4 100%);
+    clip-path: polygon(0 0, 50% 100%, 100% 0);
+    z-index: 2;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: top center;
+}
+
+.envelope.clicked .envelope-flap {
+    transform: rotateX(180deg);
+}
+
+.hint-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.6rem;
+    color: #7b6b8b;
+    text-align: center;
+    opacity: 0;
+    animation: fadeInUp 1.5s ease forwards 1s;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   ACTO 2: CARTA VINTAGE ABIERTA
+   ============================================ */
+.letter-scene {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    z-index: 10;
+}
+
+/* Sobre abierto arriba */
+.open-envelope {
+    position: relative;
+    width: 320px;
+    height: 80px;
+    margin-bottom: -40px;
+    z-index: 5;
+}
+
+.open-envelope-back {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(180deg, #c4a5d4 0%, #b48bc8 100%);
+    border-radius: 6px 6px 0 0;
+}
+
+.open-envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: linear-gradient(180deg, #b48bc8 0%, #9e78b8 100%);
+    clip-path: polygon(0 100%, 50% 0, 100% 100%);
+}
+
+/* Carta/Papel vintage */
+.vintage-letter {
+    position: relative;
+    width: 320px;
+    min-height: 450px;
+    background: linear-gradient(180deg, #faf6f0 0%, #f5ede3 50%, #ebe3d5 100%);
+    border-radius: 8px;
+    padding: 40px 30px;
+    box-shadow: 
+        0 25px 60px rgba(100, 80, 60, 0.25),
+        inset 0 0 40px rgba(255, 255, 255, 0.4);
+    opacity: 0;
+    transform: translateY(40px);
+    z-index: 4;
+}
+
+.vintage-letter.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Textura del papel */
+.vintage-letter::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    border-radius: 8px;
+}
+
+/* Bordes imperfectos del papel */
+.vintage-letter::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid rgba(180, 160, 140, 0.3);
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.letter-content {
+    min-height: 180px;
+    max-height: 200px;
+    margin-bottom: 25px;
+    overflow: hidden;
+    position: relative;
+    scroll-behavior: smooth;
+    /* Mask para efecto de desvanecimiento arriba */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);
+}
+
+.letter-text {
+    font-family: 'Lora', serif;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: #4a405a;
+    text-align: center;
+}
+
+/* Animación suave para cada carácter */
+.letter-text .char-fade {
+    opacity: 0;
+    display: inline;
+    transition: opacity 0.4s ease-out;
+}
+
+.letter-text .char-fade.visible {
+    opacity: 1;
+}
+
+.letter-text::after {
+    content: '|';
+    color: #9e78b8;
+    animation: blink 1s step-end infinite;
+    margin-left: 2px;
+}
+
+.letter-text.finished::after {
+    display: none;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Corazón central */
+.letter-heart {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #9c65d4;
+    margin: 20px 0;
+    animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Info del remitente */
+.letter-info {
+    margin-top: 25px;
+}
+
+.from-line, .to-line {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3rem;
+    color: #5a506b;
+    margin: 5px 0;
+}
+
+/* Sello postal */
+.postal-stamp {
+    position: absolute;
+    bottom: 30px;
+    right: 25px;
+    width: 55px;
+    height: 65px;
+    background: linear-gradient(180deg, #e8e0f5 0%, #d8c8f0 100%);
+    border: 2px dashed rgba(120, 85, 139, 0.4);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stamp-inner {
+    width: 40px;
+    height: 50px;
+    background: linear-gradient(180deg, #c4a5d4 0%, #b48bc8 100%);
+    border-radius: 2px;
+    opacity: 0.7;
+}
+
+/* Botón recuerdos */
+.btn-memories {
+    font-size: 1.5rem;
+    padding: 15px 35px;
+    background: linear-gradient(135deg, #d8bbf8 0%, #b388ff 100%);
+    border: none;
+    border-radius: 30px;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+    box-shadow: 0 8px 25px rgba(179, 136, 255, 0.4);
+}
+
+.btn-memories.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.btn-memories:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(179, 136, 255, 0.5);
+}
+
+.btn-memories .star {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* ============================================
+   ACTO 3: CONTADOR DESDE QUE NOS CONOCIMOS
+   ============================================ */
+#acto3, #acto4 {
+    background: linear-gradient(180deg, #f9f5ff 0%, #ffffff 50%, #f9f5ff 100%);
+    overflow: visible;
+}
+
+.counter-scene, .love-scene {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.counter-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.8rem;
+    color: #9c65b8;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.counter-title.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.counter-date {
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    color: #908090;
+    font-style: italic;
+    opacity: 0;
+}
+
+.counter-date.visible {
+    opacity: 1;
+}
+
+.counter-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    max-width: 600px;
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.counter-box.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.counter-item {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid rgba(179, 136, 255, 0.3);
+    border-radius: 15px;
+    padding: 15px 20px;
+    min-width: 80px;
+    box-shadow: 0 8px 25px rgba(150, 100, 180, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.counter-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(150, 100, 180, 0.25);
+}
+
+.counter-number {
+    display: block;
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.2rem;
+    color: #9c65d4;
+    font-weight: 700;
+}
+
+.counter-label {
+    display: block;
+    font-family: 'Lora', serif;
+    font-size: 0.75rem;
+    color: #908090;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 5px;
+}
+
+.btn-pero {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8rem;
+    padding: 18px 50px;
+    background: linear-gradient(135deg, #d8bbf8 0%, #b388ff 100%);
+    border: none;
+    border-radius: 35px;
+    color: #fff;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+    box-shadow: 0 10px 30px rgba(179, 136, 255, 0.4);
+    margin-top: 20px;
+}
+
+.btn-pero.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.btn-pero:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(179, 136, 255, 0.5);
+}
+
+/* ============================================
+   ACTO 4: IMAGEN Y CONTADOR DE AMOR
+   ============================================ */
+.love-scene {
+    gap: 15px;
+    padding: 30px 20px;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: visible;
+}
+
+.love-image-container {
+    position: relative;
+    opacity: 0;
+    transform: scale(0.8) rotate(-3deg);
+}
+
+.love-image-container.visible {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+.love-image {
+    max-width: 280px;
+    max-height: 35vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 15px;
+    border: 4px solid #fff;
+    box-shadow: 
+        0 15px 40px rgba(150, 100, 180, 0.3),
+        0 0 0 2px rgba(179, 136, 255, 0.3);
+    transition: transform 0.4s ease;
+}
+
+.love-image:hover {
+    transform: scale(1.02);
+}
+
+.image-hearts {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
+
+.image-hearts span {
+    font-size: 1.2rem;
+    color: #b388ff;
+    animation: floatHeart 2s ease-in-out infinite;
+}
+
+.image-hearts span:nth-child(1) { animation-delay: 0s; }
+.image-hearts span:nth-child(2) { animation-delay: 0.3s; }
+.image-hearts span:nth-child(3) { animation-delay: 0.6s; }
+
+@keyframes floatHeart {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.love-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3rem;
+    color: #7b6b8b;
+    line-height: 1.4;
+    max-width: 600px;
+    opacity: 0;
+    transform: translateY(20px);
+    white-space: nowrap;
+}
+
+.love-text.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.love-date {
+    font-size: 1rem;
+    color: #9c65d4;
+    margin: 0;
+}
+
+.love-counter {
+    background: rgba(228, 220, 252, 0.3);
+    padding: 12px 20px;
+    border-radius: 15px;
+}
+
+.love-counter .counter-item {
+    min-width: 60px;
+    padding: 8px 12px;
+}
+
+.love-counter .counter-number {
+    font-size: 1.6rem;
+}
+
+.love-counter .counter-label {
+    font-size: 0.65rem;
+}
+
+.final-heart {
+    font-size: 4rem;
+    color: #b388ff;
+    opacity: 0;
+    animation: none;
+}
+
+.final-heart.visible {
+    opacity: 1;
+    animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+/* San Valentín Question */
+.san-valentin-question {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.6rem;
+    color: #9c65b8;
+    text-align: center;
+    margin-top: 15px;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.san-valentin-question.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.choice-buttons {
+    display: flex;
+    gap: 25px;
+    margin-top: 10px;
+    opacity: 0;
+    transform: translateY(20px);
+    overflow: visible;
+}
+
+.choice-buttons.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.btn-choice {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3rem;
+    padding: 12px 40px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-si {
+    background: linear-gradient(135deg, #b388ff 0%, #9c27b0 100%);
+    color: #fff;
+}
+
+.btn-si:hover {
+    transform: scale(1.1) translateY(-5px);
+    box-shadow: 0 15px 40px rgba(156, 39, 176, 0.4);
+}
+
+.btn-no {
+    background: rgba(255, 255, 255, 0.9);
+    color: #999;
+    border: 2px solid #ddd;
+    font-size: 1rem;
+    padding: 12px 35px;
+    position: relative;
+    transition: left 0.3s ease, top 0.3s ease;
+}
+
+.btn-no:hover {
+    transform: scale(0.95);
+    opacity: 0.7;
+}
+
+/* GIF Overlay para el No */
+.gif-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease;
+}
+
+.gif-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.gif-fullscreen {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+/* ============================================
+   ACTO 5: ESCENA FINAL - CORAZÓN MEGA
+   ============================================ */
+#acto5 {
+    background: linear-gradient(180deg, #f5f0ff 0%, #ede5ff 50%, #f5f0ff 100%);
+    overflow-y: auto;
+}
+
+.final-scene {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.mega-heart-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0);
+}
+
+.mega-heart-container.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.mega-heart {
+    font-size: 18rem;
+    color: #b388ff;
+    text-shadow: 
+        0 0 60px rgba(179, 136, 255, 0.6),
+        0 0 120px rgba(179, 136, 255, 0.4);
+    animation: megaHeartbeat 1.2s ease-in-out infinite;
+}
+
+@keyframes megaHeartbeat {
+    0%, 100% { 
+        transform: scale(1);
+        text-shadow: 0 0 60px rgba(179, 136, 255, 0.6), 0 0 120px rgba(179, 136, 255, 0.4);
+    }
+    50% { 
+        transform: scale(1.08);
+        text-shadow: 0 0 80px rgba(179, 136, 255, 0.8), 0 0 150px rgba(179, 136, 255, 0.5);
+    }
+}
+
+.mega-heart-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    color: #fff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    line-height: 1.4;
+    white-space: nowrap;
+    opacity: 0;
+}
+
+.mega-heart-text.visible {
+    opacity: 1;
+}
+
+.final-date {
+    font-size: 1.1rem;
+    color: #9c65b8;
+    opacity: 0;
+}
+
+.final-date.visible {
+    opacity: 1;
+}
+
+.final-counter {
+    background: rgba(255, 255, 255, 0.7);
+    padding: 25px;
+    border-radius: 25px;
+    box-shadow: 0 15px 40px rgba(150, 100, 180, 0.2);
+}
+
+/* Corazones que se juntan */
+.gathering-heart {
+    position: fixed;
+    pointer-events: none;
+    z-index: 1000;
+    transition: none;
+}
+
+/* ============================================
+   RESPONSIVE - TABLETS
+   ============================================ */
+@media (max-width: 768px) {
+    .envelope {
+        width: 240px;
+        height: 155px;
+    }
+    
+    .hint-text {
+        font-size: 1.3rem;
+        padding: 0 20px;
+    }
+    
+    .open-envelope {
+        width: 280px;
+        height: 70px;
+    }
+    
+    .vintage-letter {
+        width: 290px;
+        min-height: 400px;
+        padding: 30px 25px;
+    }
+    
+    .letter-content {
+        min-height: 160px;
+        max-height: 180px;
+    }
+    
+    .letter-text {
+        font-size: 0.9rem;
+        line-height: 1.7;
+    }
+    
+    .letter-heart {
+        font-size: 2rem;
+        margin: 15px 0;
+    }
+    
+    .letter-info {
+        margin-top: 15px;
+    }
+    
+    .from-line, .to-line {
+        font-size: 1.1rem;
+    }
+    
+    .postal-stamp {
+        width: 45px;
+        height: 55px;
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    .stamp-inner {
+        width: 32px;
+        height: 42px;
+    }
+    
+    .btn-memories {
+        font-size: 1.2rem;
+        padding: 12px 28px;
+    }
+    
+    .counter-title {
+        font-size: 2.2rem;
+        padding: 0 15px;
+    }
+    
+    .counter-number {
+        font-size: 1.8rem;
+    }
+    
+    .counter-item {
+        min-width: 70px;
+        padding: 12px 15px;
+    }
+    
+    .counter-label {
+        font-size: 0.65rem;
+    }
+    
+    .love-image {
+        max-width: 250px;
+        max-height: 30vh;
+    }
+    
+    .love-text {
+        font-size: 1.2rem;
+        padding: 0 15px;
+        white-space: normal;
+        text-align: center;
+    }
+    
+    .mega-heart {
+        font-size: 12rem;
+    }
+    
+    .mega-heart-text {
+        font-size: 1.4rem;
+    }
+    
+    .san-valentin-question {
+        font-size: 1.5rem;
+        padding: 0 20px;
+    }
+    
+    .choice-buttons {
+        gap: 15px;
+    }
+    
+    .btn-choice {
+        padding: 12px 30px;
+        font-size: 1.2rem;
+    }
+    
+    .btn-pero {
+        font-size: 1.5rem;
+        padding: 15px 40px;
+    }
+}
+
+/* ============================================
+   RESPONSIVE - CELULARES GRANDES
+   ============================================ */
+@media (max-width: 480px) {
+    body {
+        overflow-x: hidden;
+    }
+    
+    .acto {
+        padding: 10px;
+    }
+    
+    .scene-1 {
+        gap: 25px;
+    }
+    
+    .envelope {
+        width: 200px;
+        height: 130px;
+    }
+    
+    .hint-text {
+        font-size: 1.15rem;
+        padding: 0 25px;
+    }
+    
+    .letter-scene {
+        gap: 20px;
+        width: 100%;
+        padding: 0 10px;
+    }
+    
+    .open-envelope {
+        width: 90%;
+        max-width: 260px;
+        height: 60px;
+        margin-bottom: -30px;
+    }
+    
+    .open-envelope-back {
+        height: 50px;
+    }
+    
+    .open-envelope-flap {
+        height: 60px;
+    }
+    
+    .vintage-letter {
+        width: 90%;
+        max-width: 300px;
+        min-height: 380px;
+        padding: 25px 20px;
+    }
+    
+    .letter-content {
+        min-height: 140px;
+        max-height: 160px;
+        margin-bottom: 15px;
+    }
+    
+    .letter-text {
+        font-size: 0.85rem;
+        line-height: 1.65;
+    }
+    
+    .letter-heart {
+        font-size: 1.8rem;
+        margin: 12px 0;
+    }
+    
+    .letter-info {
+        margin-top: 12px;
+    }
+    
+    .from-line, .to-line {
+        font-size: 1rem;
+    }
+    
+    .postal-stamp {
+        width: 40px;
+        height: 50px;
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .stamp-inner {
+        width: 28px;
+        height: 38px;
+    }
+    
+    .btn-memories {
+        font-size: 1rem;
+        padding: 10px 22px;
+        gap: 8px;
+    }
+    
+    .btn-memories .star {
+        font-size: 0.75rem;
+    }
+    
+    .counter-scene, .love-scene {
+        gap: 18px;
+        padding: 25px 15px;
+    }
+    
+    .counter-title {
+        font-size: 1.8rem;
+        line-height: 1.3;
+    }
+    
+    .counter-date {
+        font-size: 0.95rem;
+    }
+    
+    .counter-box {
+        gap: 10px;
+        max-width: 100%;
+    }
+    
+    .counter-item {
+        min-width: 55px;
+        padding: 10px 12px;
+    }
+    
+    .counter-number {
+        font-size: 1.5rem;
+    }
+    
+    .counter-label {
+        font-size: 0.55rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .btn-pero {
+        font-size: 1.3rem;
+        padding: 12px 35px;
+    }
+    
+    .love-scene {
+        padding: 20px 15px;
+    }
+    
+    .love-image-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .love-image {
+        max-width: 85%;
+        max-height: 28vh;
+    }
+    
+    .love-text {
+        font-size: 1.05rem;
+        line-height: 1.5;
+        padding: 0 10px;
+    }
+    
+    .love-counter .counter-item {
+        min-width: 50px;
+        padding: 6px 10px;
+    }
+    
+    .love-counter .counter-number {
+        font-size: 1.3rem;
+    }
+    
+    .love-counter .counter-label {
+        font-size: 0.55rem;
+    }
+    
+    .san-valentin-question {
+        font-size: 1.25rem;
+        padding: 0 15px;
+        line-height: 1.4;
+    }
+    
+    .choice-buttons {
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .btn-choice {
+        padding: 10px 28px;
+        font-size: 1.1rem;
+    }
+    
+    .btn-no {
+        padding: 10px 25px;
+        font-size: 0.9rem;
+    }
+    
+    .final-scene {
+        gap: 30px;
+        padding: 40px 15px;
+    }
+    
+    .mega-heart {
+        font-size: 9rem;
+    }
+    
+    .mega-heart-text {
+        font-size: 1.1rem;
+    }
+    
+    .final-date {
+        font-size: 0.95rem;
+    }
+    
+    .final-counter {
+        padding: 18px 15px;
+        width: 95%;
+    }
+    
+    .final-heart {
+        font-size: 3rem;
+    }
+    
+    .image-hearts span {
+        font-size: 1rem;
+    }
+}
+
+/* ============================================
+   RESPONSIVE - CELULARES PEQUEÑOS
+   ============================================ */
+@media (max-width: 360px) {
+    .envelope {
+        width: 170px;
+        height: 110px;
+    }
+    
+    .hint-text {
+        font-size: 1rem;
+    }
+    
+    .vintage-letter {
+        width: 95%;
+        min-height: 350px;
+        padding: 20px 15px;
+    }
+    
+    .letter-content {
+        min-height: 120px;
+        max-height: 140px;
+    }
+    
+    .letter-text {
+        font-size: 0.8rem;
+        line-height: 1.6;
+    }
+    
+    .counter-title {
+        font-size: 1.5rem;
+    }
+    
+    .counter-item {
+        min-width: 48px;
+        padding: 8px 10px;
+    }
+    
+    .counter-number {
+        font-size: 1.3rem;
+    }
+    
+    .mega-heart {
+        font-size: 7rem;
+    }
+    
+    .mega-heart-text {
+        font-size: 0.95rem;
+    }
+    
+    .san-valentin-question {
+        font-size: 1.1rem;
+    }
+    
+    .btn-choice {
+        padding: 8px 22px;
+        font-size: 1rem;
+    }
+}
+
+/* ============================================
+   LANDSCAPE MODE
+   ============================================ */
+@media (max-height: 500px) and (orientation: landscape) {
+    .vintage-letter {
+        min-height: auto;
+        padding: 20px;
+    }
+    
+    .letter-content {
+        max-height: 120px;
+    }
+    
+    .letter-heart {
+        font-size: 1.5rem;
+        margin: 8px 0;
+    }
+    
+    .letter-info {
+        margin-top: 10px;
+    }
+    
+    .mega-heart {
+        font-size: 6rem;
+    }
+    
+    .love-image {
+        max-height: 50vh;
+    }
+    
+    .counter-scene, .love-scene {
+        padding: 15px;
+        gap: 12px;
+    }
+    
+    .counter-title {
+        font-size: 1.6rem;
+    }
+}

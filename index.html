@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para ti ♥</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Playfair+Display:ital@0;1&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+    <!-- Música de fondo -->
+    <audio id="musicaFondo" loop>
+        <source src="img/pistaFondo.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="musicaFondo2" loop>
+        <source src="img/pistaFondo2.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Contenedor de corazones y estrellas flotantes -->
+    <div id="floatingElements"></div>
+
+    <!-- ========================================
+         ACTO 1: SOBRE CERRADO
+         ======================================== -->
+    <section id="acto1" class="acto visible">
+        <div class="scene-1">
+            <!-- Sobre rosa -->
+            <div class="envelope" id="envelope">
+                <div class="envelope-body"></div>
+                <div class="envelope-flap"></div>
+            </div>
+            
+            <!-- Texto debajo -->
+            <p class="hint-text">Hay algo que quiero decirte...</p>
+        </div>
+    </section>
+
+    <!-- ========================================
+         ACTO 2: CARTA ABIERTA ESTILO VINTAGE
+         ======================================== -->
+    <section id="acto2" class="acto">
+        <div class="letter-scene">
+            <!-- Sobre abierto arriba -->
+            <div class="open-envelope">
+                <div class="open-envelope-back"></div>
+                <div class="open-envelope-flap"></div>
+            </div>
+            
+            <!-- Carta/Papel vintage -->
+            <div class="vintage-letter" id="vintageLetter">
+                <!-- Texto que se escribe -->
+                <div class="letter-content">
+                    <p class="letter-text" id="letterText"></p>
+                </div>
+                
+                <!-- Corazón central -->
+                <div class="letter-heart">♥</div>
+                
+                <!-- Info del remitente -->
+                <div class="letter-info">
+                    <p class="from-line">De Luuuuuuuu</p>
+                    <p class="to-line">Para: Andreeeeeeee</p>
+                </div>
+                
+                <!-- Sello postal -->
+                <div class="postal-stamp">
+                    <div class="stamp-inner"></div>
+                </div>
+            </div>
+            
+            <!-- Botón para recuerdos -->
+            <button class="btn-memories" id="btnMemories">
+                <span class="star">✦</span>
+                Aqui!!  Click Aquiiii!!
+                <span class="star">✦</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- ========================================
+         ACTO 3: CONTADOR DESDE QUE NOS CONOCIMOS
+         ======================================== -->
+    <section id="acto3" class="acto">
+        <div class="counter-scene">
+            <h2 class="counter-title">El dia que te conocí...</h2>
+            <p class="counter-date">19 de Enero, 2024</p>
+            
+            <div class="counter-box" id="counter1">
+                <div class="counter-item">
+                    <span class="counter-number" id="years1">0</span>
+                    <span class="counter-label">años</span>
+                </div>
+                <div class="counter-item">
+                    <span class="counter-number" id="months1">0</span>
+                    <span class="counter-label">meses</span>
+                </div>
+                <div class="counter-item">
+                    <span class="counter-number" id="days1">0</span>
+                    <span class="counter-label">días</span>
+                </div>
+                <div class="counter-item">
+                    <span class="counter-number" id="hours1">0</span>
+                    <span class="counter-label">horas</span>
+                </div>
+                <div class="counter-item">
+                    <span class="counter-number" id="minutes1">0</span>
+                    <span class="counter-label">minutos</span>
+                </div>
+                <div class="counter-item">
+                    <span class="counter-number" id="seconds1">0</span>
+                    <span class="counter-label">segundos</span>
+                </div>
+            </div>
+            
+            <button class="btn-pero" id="btnPero">
+                pero...
+            </button>
+        </div>
+    </section>
+
+    <!-- ========================================
+         ACTO 4: IMAGEN Y CONTADOR DE AMOR
+         ======================================== -->
+    <section id="acto4" class="acto">
+        <div class="love-scene">
+            <div class="love-image-container" id="loveImageContainer">
+                <img src="img/imagenFecha.jpeg" alt="Nosotros" class="love-image" id="loveImage">
+                <div class="image-hearts">
+                    <span>♥</span><span>♥</span><span>♥</span>
+                </div>
+            </div>
+            
+            <p class="love-text" id="loveText">Empezamos a sentir en ese momento y desde ese momento no ha parado...</p>
+            
+            <p class="counter-date love-date" id="loveDate">5 de Junio, 2024</p>
+            
+            <div class="counter-box love-counter" id="counter2">
+                <div class="counter-item">
+                    <span class="counter-number" id="years2">0</span>
+                    <span class="counter-label">años</span>
+                </div>
+                <div class="counter-item">
+                    <span class="counter-number" id="months2">0</span>
+                    <span class="counter-label">meses</span>
+                </div>
+                <div class="counter-item">
+                    <span class="counter-number" id="days2">0</span>
+                    <span class="counter-label">días</span>
+                </div>
+                <div class="counter-item">
+                    <span class="counter-number" id="hours2">0</span>
+                    <span class="counter-label">horas</span>
+                </div>
+                <div class="counter-item">
+                    <span class="counter-number" id="minutes2">0</span>
+                    <span class="counter-label">minutos</span>
+                </div>
+                <div class="counter-item">
+                    <span class="counter-number" id="seconds2">0</span>
+                    <span class="counter-label">segundos</span>
+                </div>
+            </div>
+            
+            <!-- Pregunta San Valentín -->
+            <p class="san-valentin-question" id="sanValentinQuestion">¿Te quedarás un San Valentín más?</p>
+            
+            <div class="choice-buttons" id="choiceButtons">
+                <button class="btn-choice btn-si" id="btnSi">Sí</button>
+                <button class="btn-choice btn-no" id="btnNo">No</button>
+            </div>
+            
+            <!-- Overlay GIF para el No -->
+            <div class="gif-overlay" id="gifOverlay">
+                <img src="img/gif.webp" alt="" class="gif-fullscreen">
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         ACTO 5: FINAL - CORAZÓN GRANDE
+         ======================================== -->
+    <section id="acto5" class="acto">
+        <div class="final-scene">
+            <div class="mega-heart-container" id="megaHeartContainer">
+                <div class="mega-heart" id="megaHeart">♥</div>
+                <p class="mega-heart-text" id="megaHeartText">Te amo mi vida,<br>toda la vida</p>
+            </div>
+            
+            <p class="counter-date final-date" id="finalDate">Sintiendo desde el 5 de Junio, 2024</p>
+            
+            <div class="counter-box final-counter" id="counter3">
+                <div class="counter-item">
+                    <span class="counter-number" id="years3">0</span>
+                    <span class="counter-label">años</span>
+                </div>
+                <div class="counter-item">
+                    <span class="counter-number" id="months3">0</span>
+                    <span class="counter-label">meses</span>
+                </div>
+                <div class="counter-item">
+                    <span class="counter-number" id="days3">0</span>
+                    <span class="counter-label">días</span>
+                </div>
+                <div class="counter-item">
+                    <span class="counter-number" id="hours3">0</span>
+                    <span class="counter-label">horas</span>
+                </div>
+                <div class="counter-item">
+                    <span class="counter-number" id="minutes3">0</span>
+                    <span class="counter-label">minutos</span>
+                </div>
+                <div class="counter-item">
+                    <span class="counter-number" id="seconds3">0</span>
+                    <span class="counter-label">segundos</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="ola.js"></script>
+</body>
+</html>
